@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.leftcontainer{
+    margin: 30px;
+    width: 50%;
+    background-color: #E6F7FD;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.leftcontainer img{
+    width: 500px;
+    height: 450px;
+    border-radius: 50%;
+    /* width: 500px; */
+    /* scale: 0.7; */
+}

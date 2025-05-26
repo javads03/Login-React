@@ -1,0 +1,55 @@
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+}
+
+div{
+    background-color: white;
+    
+}
+
+ol{
+    list-style-type: none;
+}
+
+#nav_icon{
+    background-color: white;
+    border-radius: 50%;
+    height: 29px;
+    width: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#li{
+    background-color: rgb(80, 181, 245);
+    color: white;
+    padding: 15px;
+    border-radius: 50px 0px 0px 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    
+}
+
+#icon{
+    width: 16px;
+    height: 13.1px;
+}
+
+#aside{
+    position: fixed;
+    left: 20px;
+    width: 310px;
+    height: 100vh;
+     
+}
+
+#img{
+    width: 80%; 
+    margin-left: 40px; 
+    padding-top: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}

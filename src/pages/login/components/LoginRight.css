@@ -1,0 +1,59 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.rightcontainer{
+    width: 50%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.rightcontainer-box{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.rightcontainer-box form{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.rightcontainer-box1{
+    width: 50%;
+}
+.rightcontainer-box1 img{
+    width: 100%;
+}
+.rightcontainer-box2{
+    position: relative;
+    width: 100%;
+    
+}
+.rightcontainer-box2 label{
+    position: absolute;
+    top: -10px;
+    color: #03AEEE;
+    left: 15px;
+    padding: 0px 5px;
+    background-color: white;
+    
+}
+.rightcontainer-box2 input{
+    width: 100%;
+    height: 50px;
+    padding: 15px;
+    
+    
+}
+
+
+
+
+
+
+
