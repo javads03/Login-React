@@ -1,18 +1,37 @@
-import './Input.css'
+import "./Input.css";
 
-export default function Input({label, type, placeholder}: { label?: string, type: string, placeholder: string}) {
+export default function Input({
+  label,
+  type,
+  placeholder,
+  disabled,
+  value,
+  onChange,
+}: {
+  label?: string;
+  type: string;
+  placeholder?: string;
+  disabled?: string;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+}) {
   return (
     <>
-        <div className = "flex_item">
-            {label && (
-                <>
-                <label>{label}</label>
-                <br />
-                </>
-            )}
-            <br/>
-            <input type={type} placeholder={placeholder}/>
-        </div>
+      <div className="flex_item">
+        {label && (
+          <>
+            <label className="label">{label}</label>
+          </>
+        )}
+
+        <input
+          type={type}
+          placeholder={placeholder}
+          disabled={disabled == "true"}
+          value={value}
+          onChange={onChange}
+        />
+      </div>
     </>
-  )
+  );
 }

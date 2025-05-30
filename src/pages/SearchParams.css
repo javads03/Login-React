@@ -1,0 +1,12 @@
+.query {
+  width: 100px;
+  height: 80px;
+  font-size: 20px;
+  font-weight: 600;
+  color: white;
+  background-color: rgb(80, 181, 245);
+  border: none;
+  margin: 10px;
+  padding: 10px;
+
+}

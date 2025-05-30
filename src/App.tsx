@@ -1,20 +1,63 @@
 //import { useState } from 'react'
 
-import './pages/login/Login'
-import './App.css'
-import Login from './pages/login/Login'
-import Employee from './pages/employee/Employee'
+import "./App.css";
+
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+
+import NotFound from "./pages/NotFound";
+
+import Layout from "./pages/Layout";
+import EmployeeCreate from "./pages/employeeCreate/EmployeeCreate";
+import Login from "./pages/login/Login";
+import EmployeeList from "./pages/employeeList/EmployeeList";
+
+import EmployeeDetailById from "./pages/employeeDetails/EmployeeDetailById";
+import EmployeeEdit from "./pages/employeeEdit/EmployeeEdit";
+
+//import UncontrolledLogin from './pages/UncontrolledLogin/UncontrolledLogin'
+
 //import Header from './components/header'
 
-function App() {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+    //element: <Login />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+    //element: <Login />,
+  },
+  {
+    path: "/employees",
+    element: <Layout />,
+    children: [
+      { index: true, element: <EmployeeList /> },
+      { path: "create", element: <EmployeeCreate /> },
+      //{ path: ":id", element: <SearchParams /> },
+      {path: ":id", element: <EmployeeDetailById />},
+      // { path: "list", element: <EmployeeList /> },
+      { path: ":id/edit", element: <EmployeeEdit/>},
+    ],
+  },
   
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+]);
 
+function App() {
   return (
     <>
-      <Employee/>
+      <RouterProvider router={router}></RouterProvider>
     </>
-    
-  )
+  );
 }
 
-export default App
+export default App;

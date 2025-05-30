@@ -1,0 +1,43 @@
+div {
+  background-color: white;
+}
+
+#rightEdit {
+  position: absolute;
+  width: calc(100% - 330px);
+  height: 100vh;
+  right: 0;
+  padding: 20px;
+  background-color: rgba(216, 216, 216, 0.2);
+}
+
+p{
+    font-weight: 700;
+  font-size: 24px;
+}
+
+.right_divEdit {
+  border-radius: 15px 15px 15px 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+  background-color: white;
+  margin: 20px;
+  padding: 20px;
+}
+
+#flexEdit {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.AddressEdit {
+  width: 28%;
+}
+
+#button {
+  margin: 20px;
+}
+
+#employeeId {
+  width: 65%;
+}

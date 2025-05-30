@@ -1,0 +1,84 @@
+.row ul {
+  display: flex;
+  list-style-type: none;
+
+  align-items: center;
+  margin: 2px;
+  border-radius: 10px;
+}
+
+.detailBox {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  margin: 10px;
+  height: fit-content;
+  box-shadow: 0px 3px 6px 0px rgba(157, 157, 157, 0.161);
+  border-radius: 10px;
+  width: 65%;
+  gap: 15px;
+}
+
+.row {
+  width: 100%;
+  left: 0;
+}
+
+hr {
+  width: 830px;
+  height: 1px;
+  color: rgba(99, 102, 122, 1);
+  opacity: 0.1;
+}
+
+.row ul li {
+  width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+
+.field {
+  color: rgba(139, 141, 157, 1);
+  font-size: small;
+  font-weight: 700;
+  margin-bottom: 10px;
+  max-width: 180px;
+}
+
+.value {
+  font-size: small;
+  font-weight: 700;
+}
+
+#statusBox {
+  font-size: small;
+  font-weight: 700;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 20px;
+  align-content: center;
+  min-width: 110px;
+  display: flex;
+  justify-content: center;
+}
+
+.Probation {
+  background: rgba(245, 236, 184, 1);
+}
+
+.Active {
+  background: rgba(211, 244, 190, 1);
+}
+
+.Inactive {
+  background: rgba(255, 191, 191, 1);
+}
+
+.Status {
+  background-color: rgba(234, 249, 255, 1);
+}

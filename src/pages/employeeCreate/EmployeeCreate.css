@@ -1,66 +1,44 @@
-*{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
-}
-
-div{
+div {
     background-color: white;
-    
-}
-
-h2{
-    margin: 10px;
-    
-}
-
-#right{
+  }
+  
+  #right {
     position: absolute;
     width: calc(100% - 330px);
     height: 100vh;
     right: 0;
     padding: 20px;
     background-color: rgba(216, 216, 216, 0.2);
-    
-
-}
-
-.right_div{
+  }
+  
+  p{
+      font-weight: 700;
+    font-size: 24px;
+  }
+  
+  .right_div {
     border-radius: 15px 15px 15px 15px;
-    margin: 20px;
-    padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
     background-color: white;
-}
-
-#flex{
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  #flex{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    
-}
-
-.flex_item
-{
+  }
+  
+  .Address {
     width: 28%;
-    margin: 10px;
-    padding: 10px;
-
-    
-}
-
-
-select{
-    padding: 10px;
-    margin-top: 10px;
-    width: 100%;
-    background-color: white;
-    
-}
-
-.Address{
-    width: 100%;
-}
-
-#button{
+  }
+  
+  #button {
     margin: 20px;
-}
+  }
+  
+  #employeeId {
+    width: 65%;
+  }
+  

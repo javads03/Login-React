@@ -1,0 +1,30 @@
+.create {
+    display: flex;
+    align-items: center;
+    background: rgba(234, 249, 255, 1);
+    border-radius: 50px;
+  }
+  
+  .circle {
+    background: rgba(3, 174, 238, 1);
+    display: flex;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    justify-self: flex-start;
+    align-items: center;
+    justify-content: center;
+    
+  }
+
+  
+
+  
+  
+  .tag {
+    background: rgba(234, 249, 255, 1);
+    margin: 10px;
+    margin-right: 30px;
+    justify-self: flex-start;
+  }
+  
