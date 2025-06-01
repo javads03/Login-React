@@ -3,29 +3,56 @@ import SmallButton from "../../components/button/SmallButton";
 import Input from "../../components/Input/Input";
 import Select from "../../components/select/Select";
 import "./EmployeeCreate.css";
+import {
+  EMPLOYEE_ACTION_TYPES,
+  type EmployeeState,
+  type Employee,
+} from "../../store/employee/employee.types";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function EmployeeCreate() {
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<Employee>({
     name: "",
-    joiningDate: "",
-    experience: "",
-    department: "",
-    role: "",
-    status: "",
+    dateOfJoining: "",
+    experience: 0,
+    departmentId: "",
+    role: "DEVELOPER",
+    status: "ACTIVE",
     email: "",
     password: "",
-    age: "",
-    flatNo: "",
-    line1: "",
-    line2: "",
-    pincode: "",
+    age: 0,
+    address: {
+      houseNo: "",
+      line1: "",
+      line2: "",
+      pincode: "",
+    },
     employeeId: "",
   });
+
+  const dispatch = useDispatch();
+
+  //const result = useSelector((state) => state);
+  const result = useSelector<EmployeeState>((state) => state.employees);
+  console.log(result);
+
+  const handleSubmit = () => {
+    dispatch({
+      type: EMPLOYEE_ACTION_TYPES.ADD,
+      payload: values,
+    });
+  };
 
   const updateField = (field: string, value: string) => {
     setValues({
       ...values,
       [field]: value,
+    });
+  };
+
+  const updateAddressField = (field: string, value: string) => {
+    setValues((prev) => {
+      return { ...prev, address: { ...prev.address, [field]: value } };
     });
   };
 
@@ -36,7 +63,13 @@ export default function EmployeeCreate() {
           <p>Create Employee</p>
         </div>
 
-        <form className="right_div">
+        <form
+          className="right_div"
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleSubmit();
+          }}
+        >
           <div id="flex">
             <Input
               label="Employee Name"
@@ -50,27 +83,35 @@ export default function EmployeeCreate() {
               label="Joining Date"
               type="date"
               placeholder="Joining Date"
-              value={values.joiningDate}
+              value={values.dateOfJoining}
               onChange={(event) =>
-                updateField("joiningDate", event.target.value)
+                updateField("dateOfJoining", event.target.value)
               }
             />
 
-            <Input label="Experience" type="text" placeholder="Experience" />
+            <Input
+              label="Experience"
+              type="number"
+              placeholder="Experience"
+              value={values.experience}
+              onChange={(event) =>
+                updateField("experience", event.target.value)
+              }
+            />
 
             <Select
               label="Department"
               options={["Design", "Development", "Testing", "Management"]}
               placeholder="Department"
-              value={values.department}
+              value={values.departmentId}
               onChange={(event) =>
-                updateField("department", event.target.value)
+                updateField("departmentId", event.target.value)
               }
             />
 
             <Select
               label="Role"
-              options={["UI", "UX", "Developer", "HR"]}
+              options={["UI", "UX", "DEVELOPER", "HR"]}
               placeholder="Choose Role"
               value={values.role}
               onChange={(event) => updateField("role", event.target.value)}
@@ -100,34 +141,51 @@ export default function EmployeeCreate() {
               onChange={(event) => updateField("password", event.target.value)}
             />
 
-            <Input label="Age" type="text" placeholder="Age" />
+            <Input
+              label="Age"
+              type="number"
+              placeholder="Age"
+              value={values.age}
+              onChange={(event) => updateField("age", event.target.value)}
+            />
 
             <div className="Address">
               <Input
                 label="Address"
                 type="text"
                 placeholder="Flat No./House No."
-                value={values.flatNo}
-                onChange={(event) => updateField("flatNo", event.target.value)}
+                value={values.address.houseNo}
+                onChange={(event) =>
+                  updateAddressField("houseNo", event.target.value)
+                }
               />
 
               <Input
                 type="text"
                 placeholder="Address Line 1"
-                value={values.line1}
-                onChange={(event) => updateField("line1", event.target.value)}
+                value={values.address.line1}
+                onChange={(event) =>
+                  updateAddressField("line1", event.target.value)
+                }
               />
 
               <Input
                 type="text"
                 placeholder="Address Line 2"
-                value={values.line2}
+                value={values.address.line2}
                 onChange={(event) =>
-                  updateField("line2", event.target.value)
+                  updateAddressField("line2", event.target.value)
                 }
               />
 
-              <Input type="text" placeholder="Pincode" />
+              <Input
+                type="text"
+                placeholder="Pincode"
+                value={values.address.pincode}
+                onChange={(event) =>
+                  updateAddressField("pincode", event.target.value)
+                }
+              />
             </div>
             <div id="employeeId">
               <Input

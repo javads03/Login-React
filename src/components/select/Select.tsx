@@ -10,7 +10,7 @@ export default function Select({
   label: string;
   options: string[];
   placeholder: string;
-  value?: string;
+  value?: string | number;
   onChange?: React.ChangeEventHandler<HTMLSelectElement>;
 }) {
   return (

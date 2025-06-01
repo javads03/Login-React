@@ -17,6 +17,8 @@ import EmployeeList from "./pages/employeeList/EmployeeList";
 
 import EmployeeDetailById from "./pages/employeeDetails/EmployeeDetailById";
 import EmployeeEdit from "./pages/employeeEdit/EmployeeEdit";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 //import UncontrolledLogin from './pages/UncontrolledLogin/UncontrolledLogin'
 
@@ -40,12 +42,12 @@ const router = createBrowserRouter([
       { index: true, element: <EmployeeList /> },
       { path: "create", element: <EmployeeCreate /> },
       //{ path: ":id", element: <SearchParams /> },
-      {path: ":id", element: <EmployeeDetailById />},
+      { path: ":id", element: <EmployeeDetailById /> },
       // { path: "list", element: <EmployeeList /> },
-      { path: ":id/edit", element: <EmployeeEdit/>},
+      { path: ":id/edit", element: <EmployeeEdit /> },
     ],
   },
-  
+
   {
     path: "*",
     element: <NotFound />,
@@ -55,7 +57,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <RouterProvider router={router}></RouterProvider>
+      <Provider store={store}>
+        <RouterProvider router={router}></RouterProvider>
+      </Provider>
     </>
   );
 }

@@ -28,10 +28,7 @@
   margin-right: 5px;
   font-size: 16px;
 }
-#listId1 {
-  background: rgba(234, 249, 255, 1);
-  font-weight: 700;
-}
+
 
 #listId2 {
   background: white;
@@ -49,21 +46,19 @@
   justify-content: center;
 }
 
-.Probation {
+.PROBATION {
   background: rgba(245, 236, 184, 1);
 }
 
-.Active {
+.ACTIVE {
   background: rgba(211, 244, 190, 1);
 }
 
-.Inactive {
+.INACTIVE {
   background: rgba(255, 191, 191, 1);
 }
 
-.Status {
-  background-color: rgba(234, 249, 255, 1);
-}
+
 
 .modal-overlay {
   position: fixed;

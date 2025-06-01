@@ -12,7 +12,7 @@ export default function Input({
   type: string;
   placeholder?: string;
   disabled?: string;
-  value?: string;
+  value?: string | number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }) {
   return (

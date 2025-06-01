@@ -1,7 +1,8 @@
 import IconButton from "../../../components/button/IconButton";
+import type { Employee } from "../../../store/employee/employee.types";
 import './DetailBar.css'
 
-export default function DetailBar({path}: {path: string}) {
+export default function DetailBar({path, values}: {path: string, values: Employee}) {
   return (
     <>
       <div className="detailsBar">
@@ -13,6 +14,7 @@ export default function DetailBar({path}: {path: string}) {
             tag="Edit"
             navPath={path}
             imagePath="/src/assets/edit.png"
+            values= {values}
           />
         </div>
       </div>

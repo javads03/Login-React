@@ -2,6 +2,14 @@ import ListBar from "./components/ListBar";
 import "./EmployeeList.css";
 import { ListItem } from "./components/ListItem";
 import { useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type {
+  Employee,
+  EmployeeState,
+  Role,
+  Status,
+} from "../../store/employee/employee.types";
+import ListHeader from "./components/ListHeader";
 
 export default function EmployeeList() {
   const employees = [
@@ -31,22 +39,25 @@ export default function EmployeeList() {
     },
   ];
 
+  const result = useSelector<EmployeeState>((state) => state.employees);
+  //console.log(result);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const filterStatus = searchParams.get("Status");
 
   function checkStatus({
-    employeeName,
+    name,
     employeeId,
-    joiningDate,
+    dateOfJoining,
     role,
     status,
     experience,
   }: {
-    employeeName: string;
+    name: string;
     employeeId: string;
-    joiningDate: string;
-    role: string;
-    status: string;
+    dateOfJoining: string;
+    role: Role;
+    status: Status;
     experience: string;
   }) {
     if (filterStatus) {
@@ -55,36 +66,17 @@ export default function EmployeeList() {
     } else return true;
   }
 
-  const filteredEmployees = employees.filter(checkStatus);
+  const filteredEmployees = result.filter(checkStatus);
+
   return (
     <>
       <div id="rightSide">
         <ListBar />
 
-        <ListItem
-          employeeName={"Employee Name"}
-          employeeId={"Employee Id"}
-          joiningDate={"Joining Date"}
-          role={"Role"}
-          status={"Status"}
-          experience={"Experience"}
-          isActionText={true}
-          listId="listId1"
-        />
+        <ListHeader />
 
         {filteredEmployees.map((e) => {
-          return (
-            <ListItem
-              employeeName={e.employeeName}
-              employeeId={e.employeeId}
-              joiningDate={e.joiningDate}
-              role={e.role}
-              status={e.status}
-              experience={e.experience}
-              isActionButton={true}
-              listId="listId2"
-            />
-          );
+          return <ListItem values = {e}/>;
         })}
       </div>
     </>
