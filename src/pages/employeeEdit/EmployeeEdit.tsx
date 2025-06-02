@@ -52,7 +52,15 @@ export default function EmployeeEdit() {
               }
             />
 
-            <Input label="Experience" type="text" placeholder="Experience" />
+            <Input
+              label="Experience"
+              type="text"
+              placeholder="Experience"
+              value={values.experience}
+              onChange={(event) =>
+                updateField("experience", event.target.value)
+              }
+            />
 
             <Select
               label="Department"
