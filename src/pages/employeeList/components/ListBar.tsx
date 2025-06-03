@@ -40,6 +40,7 @@ export default function ListBar() {
             tag="Create Employee"
             navPath="/employees/create"
             imagePath="/src/assets/+.png"
+            //values={}
           />
         </div>
       </div>

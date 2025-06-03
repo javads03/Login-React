@@ -5,16 +5,44 @@ import Select from "../../components/select/Select";
 import "./EmployeeEdit.css";
 import { useLocation } from "react-router-dom";
 import type { Employee } from "../../store/employee/employee.types";
+import { useAppDispatch } from "../../store/store";
+import type { EmployeeCreatePayload, EmployeeListResponse } from "../../api-service/employees/types";
+import { useUpdateEmployeeMutation } from "../../api-service/employees/employee.api";
+import { useDepartmentListQuery } from "../../api-service/department/department.api";
 
 export default function EmployeeEdit() {
   const location = useLocation();
-  const employee = location.state;
+  const values = location.state;
 
-  const [values, setValues] = useState<Employee>(employee);
+  const [newValues, setValues] = useState<EmployeeCreatePayload>({
+    employeeId: values.employeeId,
+    email: values.email,
+    name: values.name,
+    age: values.age,
+    address: values.address,
+    password: values.password,
+    role: values.role,
+    dataOfJoining: new Date(values.dataOfJoining),
+    experience: values.experience,
+    status: values.status,
+    departmentId: values.department.id,
+    id: values.id
+  });
+
+  
+  console.log(values);
+
+  const [employeeUpdate] = useUpdateEmployeeMutation();
+
+  const { data: dept } = useDepartmentListQuery();
+
+  const departmentOptions = dept?.map((d) => d.name) || [];
+
+  const departmentOptionsId = dept?.map((d) => d.id) || [];
 
   const updateField = (field: string, value: string) => {
     setValues({
-      ...values,
+      ...newValues,
       [field]: value,
     });
   };
@@ -25,6 +53,29 @@ export default function EmployeeEdit() {
     });
   };
 
+  const updateNumberField = (field: string, value: number) => {
+    setValues({
+      ...newValues,
+      [field]: value,
+    });
+  };
+
+  
+
+  const handleUpdate = async (values: EmployeeCreatePayload) => {
+    console.log("here")
+    console.log(values)
+    employeeUpdate(values)
+      .unwrap()
+      .then((response) => {
+        alert("Employee Updated");
+      })
+      .catch((error) => {
+        console.log(error)
+        alert(error.data.message);
+      });
+  };
+
   return (
     <>
       <div id="rightEdit">
@@ -32,13 +83,19 @@ export default function EmployeeEdit() {
           <p>Edit Employee</p>
         </div>
 
-        <form className="right_divEdit">
+        <form
+          className="right_divEdit"
+          onSubmit={(event) => {
+            event.preventDefault();
+            handleUpdate(newValues);
+          }}
+        >
           <div id="flexEdit">
             <Input
               label="Employee Name"
               type="text"
               placeholder="Employee Name"
-              value={values.name}
+              value={newValues.name}
               onChange={(event) => updateField("name", event.target.value)}
             />
 
@@ -46,29 +103,39 @@ export default function EmployeeEdit() {
               label="Joining Date"
               type="date"
               placeholder="Joining Date"
-              value={values.dateOfJoining}
-              onChange={(event) =>
-                updateField("joiningDate", event.target.value)
+              value={
+                newValues.dataOfJoining
+                  ? new Date(values.dataOfJoining).toISOString().split("T")[0]
+                  : new Date().toISOString().split("T")[0]
+              }
+              onChange={(e) =>
+                setValues({
+                  ...newValues,
+                  dataOfJoining: e.target.value
+                    ? new Date(e.target.value)
+                    : new Date(),
+                })
               }
             />
 
             <Input
               label="Experience"
-              type="text"
+              type="number"
               placeholder="Experience"
-              value={values.experience}
+              value={newValues.experience}
               onChange={(event) =>
-                updateField("experience", event.target.value)
+                updateNumberField("experience", Number(event.target.value))
               }
             />
 
             <Select
               label="Department"
-              options={["Design", "Development", "Testing", "Management"]}
+              options={departmentOptions}
+              optionsId={departmentOptionsId}
               placeholder="Department"
-              value={values.departmentId}
+              value={newValues.departmentId}
               onChange={(event) =>
-                updateField("department", event.target.value)
+                updateNumberField("id", Number(event.target.value))
               }
             />
 
@@ -76,15 +143,15 @@ export default function EmployeeEdit() {
               label="Role"
               options={["UI", "UX", "Developer", "HR"]}
               placeholder="Choose Role"
-              value={values.role}
+              value={newValues.role}
               onChange={(event) => updateField("role", event.target.value)}
             />
 
             <Select
               label="Status"
-              options={["Active", "Inactive", "Probation"]}
+              options={["ACTIVE", "INACTIVE", "PROBATION"]}
               placeholder="Status"
-              value={values.status}
+              value={newValues.status}
               onChange={(event) => updateField("status", event.target.value)}
             />
 
@@ -92,7 +159,7 @@ export default function EmployeeEdit() {
               label="Email"
               type="text"
               placeholder="Email"
-              value={values.email}
+              value={newValues.email}
               onChange={(event) => updateField("email", event.target.value)}
             />
 
@@ -100,18 +167,26 @@ export default function EmployeeEdit() {
               label="Password"
               type="text"
               placeholder="Password"
-              value={values.password}
+              value=""
               onChange={(event) => updateField("password", event.target.value)}
             />
 
-            <Input label="Age" type="text" placeholder="Age" />
+            <Input
+              label="Age"
+              type="text"
+              placeholder="Age"
+              value={newValues.age}
+              onChange={(event) =>
+                updateNumberField("age", Number(event.target.value))
+              }
+            />
 
             <div className="Address">
               <Input
                 label="Address"
                 type="text"
                 placeholder="Flat No./House No."
-                value={values.address.houseNo}
+                value={newValues.address.houseNo}
                 onChange={(event) =>
                   updateAddressField("houseNo", event.target.value)
                 }
@@ -120,7 +195,7 @@ export default function EmployeeEdit() {
               <Input
                 type="text"
                 placeholder="Address Line 1"
-                value={values.address.line1}
+                value={newValues.address.line1}
                 onChange={(event) =>
                   updateAddressField("line1", event.target.value)
                 }
@@ -129,7 +204,7 @@ export default function EmployeeEdit() {
               <Input
                 type="text"
                 placeholder="Address Line 2"
-                value={values.address.line2}
+                value={newValues.address.line2}
                 onChange={(event) =>
                   updateAddressField("line2", event.target.value)
                 }
@@ -138,7 +213,7 @@ export default function EmployeeEdit() {
               <Input
                 type="text"
                 placeholder="Pincode"
-                value={values.address.pincode}
+                value={newValues.address.pincode}
                 onChange={(event) =>
                   updateAddressField("pincode", event.target.value)
                 }
@@ -150,7 +225,7 @@ export default function EmployeeEdit() {
                 label="Employee Id"
                 type="text"
                 placeholder="Employee Id"
-                value={values.employeeId}
+                value={newValues.employeeId}
                 onChange={(event) =>
                   updateField("employeeId", event.target.value)
                 }
@@ -160,7 +235,7 @@ export default function EmployeeEdit() {
           </div>
           <div id="button">
             <SmallButton type="submit" value="save" className="blue" />
-            <SmallButton type="reset" value="cancel" className="white" />
+            <SmallButton type="button" value="cancel" className="white" />
           </div>
         </form>
       </div>

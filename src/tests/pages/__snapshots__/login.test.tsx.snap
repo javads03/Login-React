@@ -1,0 +1,112 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Login Page > should match snapshot 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div
+      class="leftcontainer"
+    >
+      <img
+        alt=""
+        src="/src/assets/kv-login.jpeg"
+      />
+    </div>
+    <div
+      class="rightcontainer"
+    >
+      <div
+        class="rightcontainer-box"
+      >
+        <div
+          class="rightcontainer-box1"
+        >
+          <img
+            alt="Circle image"
+            src="/src/assets/kv-logo.png"
+          />
+        </div>
+        <form>
+          <div
+            class="rightcontainer-box2"
+          >
+            <div
+              class="form-input"
+            >
+              <input
+                id="username"
+                required=""
+                type="text"
+                value=""
+              />
+              <label
+                for="username"
+              >
+                Username
+              </label>
+              <button
+                class="endIcon"
+                disabled=""
+                type="button"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
+          <div
+            class="rightcontainer-box2"
+          >
+            <div
+              class="form-input"
+            >
+              <input
+                data-testid="pass"
+                id="password"
+                placeholder="Password"
+                required=""
+                type="password"
+                value=""
+              />
+              <label
+                for="password"
+              />
+            </div>
+          </div>
+          <div
+            class="check"
+          >
+            <input
+              id="showPassword"
+              type="checkbox"
+            />
+            <label
+              id="showPasswordLabel"
+            >
+              show password
+            </label>
+          </div>
+          <div
+            class="button"
+          >
+            <button
+              id="loginButton"
+              name="loginButton"
+              type="submit"
+              value="Login in"
+            >
+              Log in
+            </button>
+          </div>
+          <p>
+            X: 
+            0
+             , Y: 
+            0
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+`;

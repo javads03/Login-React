@@ -4,7 +4,8 @@ import "./EmployeeLeft.css";
 export default function EmployeeLeft() {
   const navigate = useNavigate();
   function logout() {
-    localStorage.setItem("isLoggedIn", "false");
+    //localStorage.setItem("isLoggedIn", "false");
+    localStorage.removeItem("token");
     navigate("/login");
   }
   return (

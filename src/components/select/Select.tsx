@@ -3,12 +3,14 @@ import "./Select.css";
 export default function Select({
   label,
   options,
+  optionsId,
   placeholder,
   value,
   onChange
 }: {
   label: string;
   options: string[];
+  optionsId?:number[];
   placeholder: string;
   value?: string | number;
   onChange?: React.ChangeEventHandler<HTMLSelectElement>;
@@ -22,8 +24,8 @@ export default function Select({
           <option value={placeholder} hidden>
             {placeholder}
           </option>
-          {options.map((opt) => (
-            <option value={opt}>{opt}</option>
+          {options.map((opt, index) => (
+            <option key={index} value={optionsId ? optionsId[index] : opt}>{opt}</option>
           ))}
         </select>
       </div>

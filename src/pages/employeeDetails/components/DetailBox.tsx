@@ -14,9 +14,15 @@ export default function DetailBox({
   joiningDate: string;
   role: string;
   status: string;
-  experience: string;
+  experience: string | number;
   address: string;
 }) {
+
+  function formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString(); // Returns a string like "6/2/2025"
+  }
+
   return (
     <>
       <div className="detailBox">
@@ -28,7 +34,7 @@ export default function DetailBox({
             </li>
             <li>
               <div className="field">Joining Date</div>
-              <div className="value">{joiningDate}</div>
+              <div className="value">{formatDate(joiningDate)}</div>
             </li>
             <li>
               <div className="field">Role</div>

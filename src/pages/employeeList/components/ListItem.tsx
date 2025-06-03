@@ -3,18 +3,42 @@ import "./ListItem.css";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import type { Employee } from "../../../store/employee/employee.types";
+//import type { Employee } from "../../../store/employee/employee.types";
+import { useAppDispatch } from "../../../store/store";
+//import { deleteEmployee } from "../../../store/employee/employeeReducer";
+import type { EmployeeListResponse } from "../../../api-service/employees/types";
+import { useDeleteEmployeeMutation } from "../../../api-service/employees/employee.api";
 
-
-export const ListItem = ({ values } :{ values :  Employee }) => {
+export const ListItem = ({ values }: { values: EmployeeListResponse }) => {
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleDelete = () => {
-    console.log(`Deleted employee: ${values.employeeId}`);
-    setShowModal(false);
+  const dispatch = useAppDispatch();
+
+  const [deleteEmployee] = useDeleteEmployeeMutation();
+
+  const handleDelete = async (id: number) => {
+    // console.log(`Deleted employee: ${values.employeeId}`);
+    // dispatch(deleteEmployee(values));
+    // setShowModal(false);
+
+    deleteEmployee(id)
+      .then(() => {
+        setShowModal(false);
+      })
+      .catch((error) => {
+        console.log(error.data.message);
+      });
   };
+  console.log(values);
+
+  function formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString(); // Returns a string like "6/2/2025"
+  }
+
+  console.log(values);
 
   return (
     <>
@@ -22,13 +46,13 @@ export const ListItem = ({ values } :{ values :  Employee }) => {
         className="Listhead"
         id="listId2"
         onClick={() => {
-          navigate(`/employees/${values.employeeId}`, { state: values });
+          navigate(`/employees/${values.id}`, { state: values });
         }}
       >
         <ul>
           <li>{values.name}</li>
           <li>{values.employeeId}</li>
-          <li>{values.dateOfJoining}</li>
+          <li>{formatDate(values.dataOfJoining)}</li>
           <li>{values.role}</li>
           <li>
             <div className={values.status} id="status">
@@ -70,7 +94,7 @@ export const ListItem = ({ values } :{ values :  Employee }) => {
               Do you really want to delete <strong>{values.name}</strong>?
             </h4>
             <div className="modal-actions">
-              <button onClick={handleDelete} className="confirm-btn">
+              <button onClick= {() => {if (values.id) handleDelete(values.id)}} className="confirm-btn">
                 Delete
               </button>
               <button

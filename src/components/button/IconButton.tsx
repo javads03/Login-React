@@ -1,3 +1,4 @@
+import type { EmployeeListResponse } from "../../api-service/employees/types";
 import type { Employee } from "../../store/employee/employee.types";
 import "./IconButton.css";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +12,7 @@ export default function IconButton({
   tag: string;
   navPath: string;
   imagePath: string;
-  values: Employee;
+  values?: EmployeeListResponse;
 }) {
   const navigate = useNavigate();
 
@@ -20,6 +21,7 @@ export default function IconButton({
       <div
         className="create"
         onClick={() => {
+          console.log(values);
           navigate(navPath, { state: values });
         }}
       >

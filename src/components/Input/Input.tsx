@@ -12,7 +12,7 @@ export default function Input({
   type: string;
   placeholder?: string;
   disabled?: string;
-  value?: string | number;
+  value?: string | number | null;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }) {
   return (
@@ -28,7 +28,7 @@ export default function Input({
           type={type}
           placeholder={placeholder}
           disabled={disabled == "true"}
-          value={value}
+          value={value? value : ""}
           onChange={onChange}
         />
       </div>

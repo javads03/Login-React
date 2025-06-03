@@ -8,14 +8,22 @@ import {
   type EmployeeState,
   type Employee,
 } from "../../store/employee/employee.types";
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch } from "../../store/store";
+import { addEmployee } from "../../store/employee/employeeReducer";
+import { useCreateEmployeeMutation } from "../../api-service/employees/employee.api";
+import type {
+  EmployeeCreatePayload,
+  EmployeeListResponse,
+} from "../../api-service/employees/types";
+import { useDepartmentListQuery } from "../../api-service/department/department.api";
 
 export default function EmployeeCreate() {
-  const [values, setValues] = useState<Employee>({
+  const [values, setValues] = useState<EmployeeCreatePayload>({
     name: "",
-    dateOfJoining: "",
+    dataOfJoining: null,
     experience: 0,
-    departmentId: "",
+    departmentId: 0,
     role: "Role",
     status: "Status",
     email: "",
@@ -30,20 +38,46 @@ export default function EmployeeCreate() {
     employeeId: "",
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
+  const [employeeCreate] = useCreateEmployeeMutation();
+
+  const { data: dept } = useDepartmentListQuery();
+
+  const departmentOptions = dept?.map((d) => d.name) || [];
+
+  const departmentOptionsId = dept?.map((d) => d.id) || [];
 
   //const result = useSelector((state) => state);
-  const result = useSelector<EmployeeState>((state) => state.employees);
-  console.log(result);
+  // const result = useSelector<EmployeeState>((state) => state.employees);
+  // console.log(result);
 
-  const handleSubmit = () => {
-    dispatch({
-      type: EMPLOYEE_ACTION_TYPES.ADD,
-      payload: values,
-    });
+  const handleSubmit = async () => {
+    // dispatch({
+    //   type: EMPLOYEE_ACTION_TYPES.ADD,
+    //   payload: values,
+    // });
+
+    //dispatch(addEmployee(values));
+
+    employeeCreate(values)
+      .unwrap()
+      .then((response) => {
+        alert("Employee Created");
+      })
+      .catch((error) => {
+        alert(error.data.message);
+      });
   };
 
   const updateField = (field: string, value: string) => {
+    setValues({
+      ...values,
+      [field]: value,
+    });
+  };
+
+  const updateNumberField = (field: string, value: number) => {
     setValues({
       ...values,
       [field]: value,
@@ -55,6 +89,8 @@ export default function EmployeeCreate() {
       return { ...prev, address: { ...prev.address, [field]: value } };
     });
   };
+
+  
 
   return (
     <>
@@ -83,9 +119,18 @@ export default function EmployeeCreate() {
               label="Joining Date"
               type="date"
               placeholder="Joining Date"
-              value={values.dateOfJoining}
-              onChange={(event) =>
-                updateField("dateOfJoining", event.target.value)
+              value={
+                values.dataOfJoining
+                  ? values.dataOfJoining.toISOString().split("T")[0]
+                  : null
+              }
+              onChange={(e) =>
+                setValues({
+                  ...values,
+                  dataOfJoining: e.target.value
+                    ? new Date(e.target.value)
+                    : new Date(),
+                })
               }
             />
 
@@ -95,17 +140,21 @@ export default function EmployeeCreate() {
               placeholder="Experience"
               value={values.experience}
               onChange={(event) =>
-                updateField("experience", event.target.value)
+                updateNumberField("experience", Number(event.target.value))
               }
             />
 
             <Select
               label="Department"
-              options={["Design", "Development", "Testing", "Management"]}
+              options={departmentOptions}
+              optionsId={departmentOptionsId}
               placeholder="Department"
               value={values.departmentId}
               onChange={(event) =>
-                updateField("departmentId", event.target.value)
+                updateNumberField(
+                  "departmentId",
+                  Number(event.target.value)
+                )
               }
             />
 
@@ -119,7 +168,7 @@ export default function EmployeeCreate() {
 
             <Select
               label="Status"
-              options={["Active", "Inactive", "Probation"]}
+              options={["ACTIVE", "INACTIVE", "PROBATION"]}
               placeholder="Status"
               value={values.status}
               onChange={(event) => updateField("status", event.target.value)}
@@ -146,7 +195,9 @@ export default function EmployeeCreate() {
               type="number"
               placeholder="Age"
               value={values.age}
-              onChange={(event) => updateField("age", event.target.value)}
+              onChange={(event) =>
+                updateNumberField("age", Number(event.target.value))
+              }
             />
 
             <div className="Address">

@@ -1,12 +1,12 @@
 import './Button.css'
 
-function Button() {
+function Button({ disabled }: {disabled?: boolean}) {
   
 
   return (
     <>
         <div className ="button">
-            <input type="submit" id="loginButton" value="Login in" />
+            <button type="submit" id="loginButton" name="loginButton" value="Login in" disabled={disabled}>Log in</button>
         </div>
     </>
     

@@ -1,8 +1,9 @@
+import type { EmployeeListResponse } from "../../../api-service/employees/types";
 import IconButton from "../../../components/button/IconButton";
 import type { Employee } from "../../../store/employee/employee.types";
 import './DetailBar.css'
 
-export default function DetailBar({path, values}: {path: string, values: Employee}) {
+export default function DetailBar({path, values}: {path: string, values: EmployeeListResponse}) {
   return (
     <>
       <div className="detailsBar">
