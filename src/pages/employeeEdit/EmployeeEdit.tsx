@@ -6,9 +6,13 @@ import "./EmployeeEdit.css";
 import { useLocation } from "react-router-dom";
 import type { Employee } from "../../store/employee/employee.types";
 import { useAppDispatch } from "../../store/store";
-import type { EmployeeCreatePayload, EmployeeListResponse } from "../../api-service/employees/types";
+import type {
+  EmployeeCreatePayload,
+  EmployeeListResponse,
+} from "../../api-service/employees/types";
 import { useUpdateEmployeeMutation } from "../../api-service/employees/employee.api";
 import { useDepartmentListQuery } from "../../api-service/department/department.api";
+import React from "react";
 
 export default function EmployeeEdit() {
   const location = useLocation();
@@ -20,19 +24,20 @@ export default function EmployeeEdit() {
     name: values.name,
     age: values.age,
     address: values.address,
-    password: values.password,
+    password: "",
     role: values.role,
     dataOfJoining: new Date(values.dataOfJoining),
     experience: values.experience,
     status: values.status,
     departmentId: values.department.id,
-    id: values.id
+    id: values.id,
   });
 
-  
   console.log(values);
 
   const [employeeUpdate] = useUpdateEmployeeMutation();
+
+  //const [password, setPassword] = React.useState("");
 
   const { data: dept } = useDepartmentListQuery();
 
@@ -41,6 +46,15 @@ export default function EmployeeEdit() {
   const departmentOptionsId = dept?.map((d) => d.id) || [];
 
   const updateField = (field: string, value: string) => {
+    setValues({
+      ...newValues,
+      [field]: value,
+    });
+  };
+
+  const updatePasswordField = (field: string, value: string) => {
+    console.log("password : " + value + " " + field);
+    //setPassword(value);
     setValues({
       ...newValues,
       [field]: value,
@@ -60,20 +74,20 @@ export default function EmployeeEdit() {
     });
   };
 
-  
+  const handleUpdate = async () => {
+    const payload: EmployeeCreatePayload = {
+      ...newValues,
+      password:
+        newValues.password !== "" ? newValues.password : values.password,
+    };
 
-  const handleUpdate = async (values: EmployeeCreatePayload) => {
-    console.log("here")
-    console.log(values)
-    employeeUpdate(values)
-      .unwrap()
-      .then((response) => {
-        alert("Employee Updated");
-      })
-      .catch((error) => {
-        console.log(error)
-        alert(error.data.message);
-      });
+    try {
+      const response = await employeeUpdate(payload).unwrap();
+      alert("Employee Updated");
+    } catch (error: any) {
+      console.log(error);
+      alert(error?.data?.message || "Something went wrong");
+    }
   };
 
   return (
@@ -87,7 +101,7 @@ export default function EmployeeEdit() {
           className="right_divEdit"
           onSubmit={(event) => {
             event.preventDefault();
-            handleUpdate(newValues);
+            handleUpdate();
           }}
         >
           <div id="flexEdit">
@@ -141,7 +155,7 @@ export default function EmployeeEdit() {
 
             <Select
               label="Role"
-              options={["UI", "UX", "Developer", "HR"]}
+              options={["UI", "UX", "DEVELOPER", "HR"]}
               placeholder="Choose Role"
               value={newValues.role}
               onChange={(event) => updateField("role", event.target.value)}
@@ -167,8 +181,10 @@ export default function EmployeeEdit() {
               label="Password"
               type="text"
               placeholder="Password"
-              value=""
-              onChange={(event) => updateField("password", event.target.value)}
+              value={newValues.password}
+              onChange={(event) =>
+                updatePasswordField("password", event.target.value)
+              }
             />
 
             <Input
