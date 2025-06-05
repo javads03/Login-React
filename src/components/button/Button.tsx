@@ -6,7 +6,7 @@ function Button({ disabled }: {disabled?: boolean}) {
   return (
     <>
         <div className ="button">
-            <button type="submit" id="loginButton" name="loginButton" value="Login in" disabled={disabled}>Log in</button>
+            <button type="submit" id="loginButton" name="loginButton" value="Login in" disabled={disabled}>Login in</button>
         </div>
     </>
     
