@@ -19,6 +19,7 @@ import EmployeeDetailById from "./pages/employeeDetails/EmployeeDetailById";
 import EmployeeEdit from "./pages/employeeEdit/EmployeeEdit";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import EmployeeProfile from "./pages/employeeProfile/EmployeeProfile";
 
 //import UncontrolledLogin from './pages/UncontrolledLogin/UncontrolledLogin'
 
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       { path: ":id", element: <EmployeeDetailById /> },
       // { path: "list", element: <EmployeeList /> },
       { path: ":id/edit", element: <EmployeeEdit /> },
+      
     ],
   },
 

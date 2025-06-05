@@ -109,7 +109,7 @@ export default function EmployeeCreate() {
           <div id="flex">
             <Input
               label="Employee Name"
-              type="text"
+              type="submit"
               placeholder="Employee Name"
               value={values.name}
               onChange={(event) => updateField("name", event.target.value)}

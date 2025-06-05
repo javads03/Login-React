@@ -9,7 +9,7 @@ export default function Input({
   onChange,
 }: {
   label?: string;
-  type: string;
+  type: React.HTMLInputTypeAttribute | undefined;
   placeholder?: string;
   disabled?: string;
   value?: string | number | null;

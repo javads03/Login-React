@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const ShowPasswordHook = () => {
   const [showPassword, setShowPassword] = useState(() => {
     const stored = localStorage.getItem("setShowPassword");
-    return stored === "true"; // default to false if not set
+    return stored === "true"; 
   });
 
   useEffect(() => {
